@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Có điều muốn hỏi cậu nè? 💖</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #FFD3E0, #E0FFFF);
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #FF69B4;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #yes-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+
+        #no-btn {
+            background-color: #FF6B6B;
+            color: white;
+            border: none;
+            position: relative;
+        }
+
+        .cute-icon {
+            position: absolute;
+            font-size: 30px;
+            pointer-events: none;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        #welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="welcome-modal">
+        <div class="modal-content">
+            <h2>Này! 💕</h2>
+            <p>Có điều muốn hỏi cậu nè?</p>
+            <button id="ok-btn" class="btn">OK</button>
+        </div>
+    </div>
+
+    <div class="container" style="display: none;">
+        <h1>Tớ làm người yêu cậu được không? 💕</h1>
+        <p>Thoát là đồng ý nhé :></p>
+        <div class="button-container">
+            <button id="yes-btn" class="btn">Có luôn!</button>
+            <button id="no-btn" class="btn">Không</button>
+        </div>
+    </div>
+
+    <script>
+        const welcomeModal = document.getElementById('welcome-modal');
+        const okButton = document.getElementById('ok-btn');
+        const mainContainer = document.querySelector('.container');
+        const noButton = document.getElementById('no-btn');
+        const container = document.body;
+        const cuteIcons = ['💖', '🌈', '🦄', '🍭', '🌸', '💕', '🍬', '✨'];
+
+        okButton.addEventListener('click', () => {
+            welcomeModal.style.display = 'none';
+            mainContainer.style.display = 'block';
+        });
+
+        function getRandomPosition() {
+            const x = Math.random() * (window.innerWidth - 50);
+            const y = Math.random() * (window.innerHeight - 50);
+            return { x, y };
+        }
+
+        function createCuteIcon() {
+            const icon = document.createElement('div');
+            icon.classList.add('cute-icon');
+            icon.textContent = cuteIcons[Math.floor(Math.random() * cuteIcons.length)];
+            
+            const { x, y } = getRandomPosition();
+            icon.style.left = `${x}px`;
+            icon.style.top = `${y}px`;
+            
+            container.appendChild(icon);
+
+            setTimeout(() => {
+                icon.remove();
+            }, 2000);
+        }
+
+        noButton.addEventListener('mouseover', (e) => {
+            const { x, y } = getRandomPosition();
+            noButton.style.position = 'absolute';
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+            createCuteIcon();
+        });
+
+        document.getElementById('yes-btn').addEventListener('click', () => {
+            alert('Yêu luôn! 💖 Cảm ơn cậu đã đồng ý 🥰');
+        });
+    </script>
+</body>
+</html>
